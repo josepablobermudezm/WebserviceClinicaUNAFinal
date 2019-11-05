@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bec0224b-962d-4077-b75e-b65495b8159f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cedulaSub" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select c.cnt_imc as IMC, TO_CHAR(c.cnt_fecha,'DD/MM/YYYY') as fecha from cln_controles c join cln_expedientes exp on exp.exp_id = c.cnt_expediente join 
+cln_pacientes p on p.pac_id = exp.exp_paciente  where p.pac_cedula = $P{cedulaSub}
+order by c.cnt_fecha asc]]>
+	</queryString>
+	<field name="IMC" class="java.math.BigDecimal"/>
+	<field name="FECHA" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="202" y="19" width="176" height="43" forecolor="#000000" backcolor="#000000" uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Historico IMC]]></text>
+			</staticText>
+		</band>
+	</title>
+	<summary>
+		<band height="194">
+			<xyLineChart>
+				<chart>
+					<reportElement x="14" y="7" width="541" height="182" uuid="855c4771-9dec-414b-afd5-a36618473895"/>
+					<chartTitle position="Top"/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<xyDataset>
+					<xySeries>
+						<seriesExpression><![CDATA[$F{FECHA}]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{IMC}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{IMC}]]></yValueExpression>
+					</xySeries>
+				</xyDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</linePlot>
+			</xyLineChart>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fechas" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ff056fb6-9fcd-454e-b1e4-801d6a0f6204">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="folio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT (u.us_nombre ||' '|| u.us_papellido ||' '|| u.us_sapellido) as Nombre_Completo, TO_CHAR(a.age_fecha,'yyyy/mm/dd') as Fecha, TO_CHAR(e.esp_hora_inicio,'HH24:MI') as H_INI,
+TO_CHAR(e.esp_hora_fin,'HH24:MI') as H_FIN,(p.pac_nombre ||' '|| p.pac_papellido ||' '|| p.pac_sapellido) as Paciente, c.ct_motivo as Motivo
+from CLN_AGENDAS a join CLN_MEDICOS m on m.med_id = a.age_medico join CLN_USUARIOS u on u.us_id = m.med_usuario 
+join CLN_ESPACIOS e on e.esp_agenda = a.age_id join CLN_CITAS c on c.ct_id = e.esp_cita 
+join CLN_PACIENTES p on c.ct_paciente = p.pac_id where m.med_folio = $P{folio} and
+a.age_fecha BETWEEN TO_DATE($P{fechaIni}, 'YYYY-MM-DD') and TO_DATE($P{fechaFin}, 'YYYY-MM-DD')
+order by u.us_nombre, a.age_fecha asc]]>
+	</queryString>
+	<field name="NOMBRE_COMPLETO" class="java.lang.String"/>
+	<field name="FECHA" class="java.lang.String"/>
+	<field name="H_INI" class="java.lang.String"/>
+	<field name="H_FIN" class="java.lang.String"/>
+	<field name="PACIENTE" class="java.lang.String"/>
+	<field name="MOTIVO" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement uuid="f0504c3c-c33b-4325-9d9b-efdaa0242461" mode="Opaque" x="-20" y="-23" width="595" height="92" backcolor="#0A0A85"/>
+				<staticText>
+					<reportElement uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9" x="20" y="20" width="320" height="43" forecolor="#FFFFFF"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Agenda Médica]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="57287541-cd35-43ce-a8f2-74f9562738a6" x="475" y="30" width="100" height="20" forecolor="#FFFFFF"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$P{fechaIni}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="cdeeb550-9eaa-4752-80ce-596b34636d75" x="475" y="63" width="100" height="20" forecolor="#FFFFFF"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="3d4ec114-d56c-439c-ab4e-5d3f556bcda7" x="361" y="30" width="90" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Fecha Inicial:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6480e2e6-33cb-465e-9322-4f878bacf368" x="361" y="63" width="90" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Fecha Final:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="56469293-ce96-4b1f-a738-5f948e998b52" x="21" y="63" width="275" height="20" forecolor="#FFFFFF"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_COMPLETO}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement uuid="e41e6e1b-669a-464e-8a97-079013ddc36b" x="-20" y="20" width="575" height="1" forecolor="#666666"/>
+			</line>
+			<staticText>
+				<reportElement uuid="bf507d80-8c2b-4387-b5d5-31b9662936fe" mode="Opaque" x="1" y="-1" width="81" height="20" forecolor="#000066" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="35df4691-6262-4848-87a8-00e70deaa6fb" mode="Opaque" x="388" y="0" width="167" height="20" forecolor="#000066" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bf507d80-8c2b-4387-b5d5-31b9662936fe" mode="Opaque" x="82" y="0" width="81" height="20" forecolor="#000066" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f4b80639-d785-44ec-9d33-88e54069a4c1" mode="Opaque" x="163" y="0" width="90" height="20" forecolor="#000066" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora Final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="35df4691-6262-4848-87a8-00e70deaa6fb" mode="Opaque" x="253" y="0" width="135" height="20" forecolor="#000066" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paciente]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33">
+			<line>
+				<reportElement uuid="32063132-bb2b-44bd-ac9f-d975aac948e2" positionType="FixRelativeToBottom" x="0" y="32" width="555" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c20f363d-64a1-44db-91f2-a8f1a7391771" x="82" y="9" width="81" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{H_INI}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="524e7b93-f6e4-4f40-bedc-80c7450badbc" x="-1" y="9" width="83" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c20f363d-64a1-44db-91f2-a8f1a7391771" x="172" y="9" width="81" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{H_FIN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c20f363d-64a1-44db-91f2-a8f1a7391771" x="253" y="9" width="135" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PACIENTE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c20f363d-64a1-44db-91f2-a8f1a7391771" x="388" y="9" width="167" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MOTIVO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement uuid="8139c6d8-8ecf-41dc-aa61-8f03ab413e5c" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="dc114ac7-e313-4dca-9643-aaa2ac5cfcfd" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="01ae484f-3213-4a09-9ff2-8cc784dbb467" x="0" y="4" width="100" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
