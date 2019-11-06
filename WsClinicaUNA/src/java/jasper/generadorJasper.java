@@ -7,10 +7,7 @@ package jasper;
 
 import cr.ac.una.wsclinicauna.util.CodigoRespuesta;
 import cr.ac.una.wsclinicauna.util.Respuesta;
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -22,8 +19,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;   
-import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -44,7 +40,6 @@ public class generadorJasper {
             parametro.put("folio", folio);
             parametro.put("ID", "");
             JasperReport reporte = null;
-            System.out.println("Reporte " + generadorJasper.class.getResource("/jasper/fechas.jasper"));
             reporte = (JasperReport) JRLoader.loadObject(generadorJasper.class.getResource("/jasper/fechas.jasper"));
 
             JasperPrint j = JasperFillManager.fillReport(reporte, parametro, connection);
@@ -69,8 +64,12 @@ public class generadorJasper {
             File archivo;
             if (reporte.equals("agenda")) {
                 archivo = new File("ReporteAgenda.pdf");
-            } else {
+            } else if(reporte.equals("control")){
                 archivo = new File("ReportePaciente.pdf");
+            }else if(reporte.equals("porMedicos")){
+                archivo = new File("Reporte%Medicos.pdf");
+            }else{
+                archivo = new File("Reporte%Medico.pdf");
             }
 
             JasperExportManager.exportReportToPdfFile(j, archivo.getAbsolutePath());
@@ -81,21 +80,17 @@ public class generadorJasper {
         }
     }
 
-    public Respuesta generaReporte(String cedula, Connection connection) {
+    public Respuesta generaReporteControlMed(String cedula, Connection connection) {
 
         try {
             Map parametro = new HashMap();
             parametro.put("cedula", cedula);
-            File file = new File("graficoIMC.jasper");
-            
             parametro.put("SUBREPORT_DIR",generadorJasper.class.getResource("/jasper/").toString());
             
             JasperReport reporte = null;
-            //System.out.println(generadorJasper.class.getResource("/jasper/controlMedico.jasper"));
             reporte = (JasperReport) JRLoader.loadObject(generadorJasper.class.getResource("/jasper/controlMedico.jasper"));
             JasperPrint j = JasperFillManager.fillReport(reporte, parametro, connection);
             print = j;
-            // JasperViewer viewer;
 
             connection.close();
             Respuesta respuesta = CrearPdf(print, "control");
@@ -105,5 +100,40 @@ public class generadorJasper {
             return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error generando Reporte", e.getMessage());
         }
     }
+
+    public Respuesta generaReporteMedicos(Connection connection) {
+        try {
+            Map parametro = new HashMap();
+            parametro.put("SUBREPORT_DIR",generadorJasper.class.getResource("/jasper/").toString());
+            JasperReport reporte = null;
+            reporte = (JasperReport) JRLoader.loadObject(generadorJasper.class.getResource("/jasper/porcentajeCitas.jasper"));
+            JasperPrint j = JasperFillManager.fillReport(reporte, parametro, connection);
+            print = j;
+            connection.close();
+            Respuesta respuesta = CrearPdf(print, "porMedicos");
+            return respuesta;
+        } catch (SQLException | JRException e) {
+            Logger.getLogger(generadorJasper.class.getName()).log(Level.SEVERE, null, e);
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error generando Reporte", e.getMessage());
+        }
+    }
+
+    public Respuesta generaReporteMedico(String cedula, Connection connection) {
+        try {
+            Map parametro = new HashMap();
+            parametro.put("cedula", cedula);
+            JasperReport reporte = null;
+            reporte = (JasperReport) JRLoader.loadObject(generadorJasper.class.getResource("/jasper/porcentajeMed.jasper"));
+            JasperPrint j = JasperFillManager.fillReport(reporte, parametro, connection);
+            print = j;
+            connection.close();
+            Respuesta respuesta = CrearPdf(print, "porMedico");
+            return respuesta;
+        } catch (SQLException | JRException e) {
+            Logger.getLogger(generadorJasper.class.getName()).log(Level.SEVERE, null, e);
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error generando Reporte", e.getMessage());
+        }
+    }
+    
 
 }

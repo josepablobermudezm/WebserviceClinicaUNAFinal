@@ -8,8 +8,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[select c.cnt_imc as IMC, TO_CHAR(c.cnt_fecha,'DD/MM/YYYY') as fecha from cln_controles c join cln_expedientes exp on exp.exp_id = c.cnt_expediente join 
-cln_pacientes p on p.pac_id = exp.exp_paciente  where p.pac_cedula = $P{cedulaSub}
-order by c.cnt_fecha asc]]>
+cln_pacientes p on p.pac_id = exp.exp_paciente  where p.pac_cedula = $P{cedulaSub}]]>
 	</queryString>
 	<field name="IMC" class="java.math.BigDecimal"/>
 	<field name="FECHA" class="java.lang.String"/>
@@ -17,9 +16,9 @@ order by c.cnt_fecha asc]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="72" splitType="Stretch">
+		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="202" y="19" width="176" height="43" forecolor="#000000" backcolor="#000000" uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9"/>
+				<reportElement uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9" x="202" y="19" width="176" height="43" forecolor="#000000" backcolor="#000000"/>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
@@ -27,32 +26,26 @@ order by c.cnt_fecha asc]]>
 			</staticText>
 		</band>
 	</title>
-	<summary>
-		<band height="194">
-			<xyLineChart>
+	<detail>
+		<band height="302" splitType="Stretch">
+			<lineChart>
 				<chart>
-					<reportElement x="14" y="7" width="541" height="182" uuid="855c4771-9dec-414b-afd5-a36618473895"/>
-					<chartTitle position="Top"/>
+					<reportElement uuid="bc51bd7b-5c2e-4ba2-8a37-d9300d681a7e" x="33" y="10" width="486" height="266"/>
+					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
-				<xyDataset>
-					<xySeries>
+				<categoryDataset>
+					<categorySeries>
 						<seriesExpression><![CDATA[$F{FECHA}]]></seriesExpression>
-						<xValueExpression><![CDATA[$F{IMC}]]></xValueExpression>
-						<yValueExpression><![CDATA[$F{IMC}]]></yValueExpression>
-					</xySeries>
-				</xyDataset>
+						<categoryExpression><![CDATA["IMC"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{IMC}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
 				<linePlot>
 					<plot/>
-					<categoryAxisFormat>
-						<axisFormat/>
-					</categoryAxisFormat>
-					<valueAxisFormat>
-						<axisFormat/>
-					</valueAxisFormat>
 				</linePlot>
-			</xyLineChart>
+			</lineChart>
 		</band>
-	</summary>
+	</detail>
 </jasperReport>

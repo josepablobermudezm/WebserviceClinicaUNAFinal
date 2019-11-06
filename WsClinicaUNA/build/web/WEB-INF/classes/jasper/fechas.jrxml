@@ -46,32 +46,36 @@ order by u.us_nombre, a.age_fecha asc]]>
 				</staticText>
 				<textField>
 					<reportElement uuid="57287541-cd35-43ce-a8f2-74f9562738a6" x="475" y="30" width="100" height="20" forecolor="#FFFFFF"/>
-					<textElement/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$P{fechaIni}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement uuid="cdeeb550-9eaa-4752-80ce-596b34636d75" x="475" y="63" width="100" height="20" forecolor="#FFFFFF"/>
-					<textElement/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement uuid="3d4ec114-d56c-439c-ab4e-5d3f556bcda7" x="361" y="30" width="90" height="20" forecolor="#FFFFFF"/>
 					<textElement textAlignment="Right">
-						<font size="14" isBold="false"/>
+						<font size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Fecha Inicial:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="6480e2e6-33cb-465e-9322-4f878bacf368" x="361" y="63" width="90" height="20" forecolor="#FFFFFF"/>
 					<textElement textAlignment="Right">
-						<font size="14" isBold="false"/>
+						<font size="14" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Fecha Final:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 					<reportElement uuid="56469293-ce96-4b1f-a738-5f948e998b52" x="21" y="63" width="275" height="20" forecolor="#FFFFFF"/>
 					<textElement>
-						<font size="14"/>
+						<font size="14" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{NOMBRE_COMPLETO}]]></textFieldExpression>
 				</textField>
@@ -131,35 +135,35 @@ order by u.us_nombre, a.age_fecha asc]]>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="c20f363d-64a1-44db-91f2-a8f1a7391771" x="82" y="9" width="81" height="20"/>
 				<textElement>
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{H_INI}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="524e7b93-f6e4-4f40-bedc-80c7450badbc" x="-1" y="9" width="83" height="20"/>
 				<textElement>
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FECHA}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="c20f363d-64a1-44db-91f2-a8f1a7391771" x="172" y="9" width="81" height="20"/>
 				<textElement>
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{H_FIN}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="c20f363d-64a1-44db-91f2-a8f1a7391771" x="253" y="9" width="135" height="20"/>
 				<textElement>
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PACIENTE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement uuid="c20f363d-64a1-44db-91f2-a8f1a7391771" x="388" y="9" width="167" height="20"/>
 				<textElement>
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MOTIVO}]]></textFieldExpression>
 			</textField>

@@ -3,37 +3,121 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="canceladas" class="java.lang.Number"/>
-	<parameter name="programadas" class="java.lang.Number"/>
-	<parameter name="ausentes" class="java.lang.Number"/>
-	<parameter name="atendidas" class="java.lang.Number"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Carlos Olivares\\Documents\\GitHub\\WsClinicaUNA\\WsClinicaUNA\\build\\web\\WEB-INF\\classes\\jasper\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select distinct ((us.us_nombre ||' '|| us.us_papellido ||' '|| us.us_sapellido)) nombre, ((select count(*) from cln_citas c where c.ct_estado ='PR' )*100)/(select count(*) from cln_citas) as programadas, 
+((select count(*) from cln_citas c where c.ct_estado ='AU' )*100)/(select count(*) from cln_citas) as ausentes,
+((select count(*) from cln_citas c where c.ct_estado ='AT' )*100)/(select count(*) from cln_citas) as atendidas, 
+((select count(*) from cln_citas c where c.ct_estado ='CA' )*100)/(select count(*) from cln_citas) as canceladas, c.med_folio as folio 
+from cln_medicos c join cln_usuarios us on us.us_id = c.med_usuario]]>
+	</queryString>
+	<field name="NOMBRE" class="java.lang.String"/>
+	<field name="PROGRAMADAS" class="java.math.BigDecimal"/>
+	<field name="AUSENTES" class="java.math.BigDecimal"/>
+	<field name="ATENDIDAS" class="java.math.BigDecimal"/>
+	<field name="CANCELADAS" class="java.math.BigDecimal"/>
+	<field name="FOLIO" class="java.lang.String"/>
+	<variable name="PROGRAMADAS_SUM" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{PROGRAMADAS}]]></variableExpression>
+	</variable>
+	<variable name="PROGRAMADAS_SUM_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{PROGRAMADAS}]]></variableExpression>
+	</variable>
+	<variable name="AUSENTES_SUM" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{AUSENTES}]]></variableExpression>
+	</variable>
+	<variable name="ATENDIDAS_SUM" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ATENDIDAS}]]></variableExpression>
+	</variable>
+	<variable name="PROGRAMADAS_SUM_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{PROGRAMADAS}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<frame>
+				<reportElement uuid="f0504c3c-c33b-4325-9d9b-efdaa0242461" mode="Opaque" x="0" y="0" width="555" height="79" backcolor="#0A0A85"/>
+				<staticText>
+					<reportElement uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9" x="7" y="33" width="474" height="43" forecolor="#FFFFFF"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Citas por Médico]]></text>
+				</staticText>
+			</frame>
+		</band>
 	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
-			<stackedBar3DChart>
+		<band height="181">
+			<subreport>
+				<reportElement uuid="86a1aed3-9d0a-4d89-9998-da62e64fcf8b" x="3" y="19" width="512" height="145"/>
+				<subreportParameter name="folio">
+					<subreportParameterExpression><![CDATA[$F{FOLIO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "porcentajeMed.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement uuid="54382526-2856-41f3-a1df-de45ef6b2a30" x="455" y="16" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="345">
+			<xyBarChart>
 				<chart>
-					<reportElement uuid="8754984a-7a25-4781-b0b8-66df9e739620" x="238" y="25" width="200" height="100"/>
+					<reportElement uuid="17baecd0-0dcb-4f51-ac7a-64eee6dbab3c" x="0" y="81" width="555" height="264"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
-				<categoryDataset/>
-				<bar3DPlot>
+				<xyDataset>
+					<xySeries>
+						<seriesExpression><![CDATA["Programadas"]]></seriesExpression>
+						<xValueExpression><![CDATA[2.0]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{PROGRAMADAS}]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Ausentes"]]></seriesExpression>
+						<xValueExpression><![CDATA[4.0]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{AUSENTES}]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Atendidas"]]></seriesExpression>
+						<xValueExpression><![CDATA[6.0]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{ATENDIDAS}]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Canceladas"]]></seriesExpression>
+						<xValueExpression><![CDATA[8.0]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{CANCELADAS}]]></yValueExpression>
+					</xySeries>
+				</xyDataset>
+				<barPlot>
 					<plot/>
 					<itemLabel/>
-				</bar3DPlot>
-			</stackedBar3DChart>
+				</barPlot>
+			</xyBarChart>
+			<frame>
+				<reportElement uuid="f0504c3c-c33b-4325-9d9b-efdaa0242461" mode="Opaque" x="0" y="2" width="555" height="79" backcolor="#0A0A85"/>
+				<staticText>
+					<reportElement uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9" x="20" y="23" width="525" height="43" forecolor="#FFFFFF"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Porcentaje (%) Total entre todos los Médicos]]></text>
+				</staticText>
+			</frame>
 		</band>
-	</detail>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
+	</summary>
 </jasperReport>

@@ -7,7 +7,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["C:\\Users\\Carlos Olivares\\Documents\\GitHub\\WsClinicaUNA\\WsClinicaUNA\\WsClinicaUNA\\build\\web\\WEB-INF\\classes\\jasper\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT TO_CHAR(c.cnt_fecha,'yyyy/mm/dd') as Fecha,TO_CHAR(c.cnt_hora, 'HH24:MI') as Hora,c.cnt_presion as Presion,c.cnt_frecuencia_cardiaca as 
@@ -48,18 +48,18 @@ order by c.cnt_fecha, c.cnt_hora]]>
 	<title>
 		<band height="77" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="0" y="-1" width="555" height="78" backcolor="#0A0A85" uuid="f0504c3c-c33b-4325-9d9b-efdaa0242461"/>
+				<reportElement uuid="f0504c3c-c33b-4325-9d9b-efdaa0242461" mode="Opaque" x="0" y="-1" width="555" height="78" backcolor="#0A0A85"/>
 				<staticText>
-					<reportElement x="0" y="1" width="326" height="43" forecolor="#FFFFFF" uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9"/>
+					<reportElement uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9" x="0" y="1" width="326" height="43" forecolor="#FFFFFF"/>
 					<textElement>
 						<font size="24" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Paciente]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement x="0" y="44" width="275" height="20" forecolor="#FFFFFF" uuid="56469293-ce96-4b1f-a738-5f948e998b52"/>
+					<reportElement uuid="56469293-ce96-4b1f-a738-5f948e998b52" x="0" y="44" width="275" height="20" forecolor="#FFFFFF"/>
 					<textElement>
-						<font size="14"/>
+						<font size="14" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{NOMBRE}]]></textFieldExpression>
 				</textField>
@@ -69,87 +69,87 @@ order by c.cnt_fecha, c.cnt_hora]]>
 	<pageHeader>
 		<band height="231" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="0" width="555" height="1" forecolor="#000000" backcolor="#000000" uuid="e41e6e1b-669a-464e-8a97-079013ddc36b"/>
+				<reportElement uuid="e41e6e1b-669a-464e-8a97-079013ddc36b" x="0" y="0" width="555" height="1" forecolor="#000000" backcolor="#000000"/>
 			</line>
 			<textField>
-				<reportElement x="0" y="81" width="100" height="20" uuid="6f66c468-6c55-44fa-b38d-b402a2850374"/>
+				<reportElement uuid="6f66c468-6c55-44fa-b38d-b402a2850374" x="0" y="81" width="100" height="20"/>
 				<textElement textAlignment="Justified">
-					<font size="10" isBold="true"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TRATAMIENTO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="81" width="81" height="20" uuid="5826fbed-2a04-4e91-8f96-09e4a56189aa"/>
+				<reportElement uuid="5826fbed-2a04-4e91-8f96-09e4a56189aa" x="100" y="81" width="81" height="20"/>
 				<textElement textAlignment="Justified">
-					<font size="10" isBold="true"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ALERGIAS}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="181" y="81" width="122" height="20" uuid="c07d6f70-f876-4699-929f-c628f56797f0"/>
+				<reportElement uuid="c07d6f70-f876-4699-929f-c628f56797f0" x="181" y="81" width="122" height="20"/>
 				<textElement textAlignment="Justified">
-					<font size="10" isBold="true"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{OPERACIONES}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="306" y="81" width="126" height="20" uuid="74eafda6-4574-40e9-9a07-fbfa6a3b3551"/>
+				<reportElement uuid="74eafda6-4574-40e9-9a07-fbfa6a3b3551" x="306" y="81" width="126" height="20"/>
 				<textElement textAlignment="Justified">
-					<font size="10" isBold="true"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{HOSPITALIZACIONES}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="433" y="81" width="122" height="20" uuid="43044290-09d3-407d-b37d-5c419bbe879b"/>
+				<reportElement uuid="43044290-09d3-407d-b37d-5c419bbe879b" x="433" y="81" width="122" height="20"/>
 				<textElement textAlignment="Justified">
-					<font size="10" isBold="true"/>
+					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ANTECENDENTES}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="14" width="140" height="43" forecolor="#000000" backcolor="#000000" uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9"/>
+				<reportElement uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9" x="0" y="14" width="140" height="43" forecolor="#000000" backcolor="#000000"/>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Expediente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="452" y="57" width="90" height="20" forecolor="#000066" backcolor="#FFFFFF" uuid="f4b80639-d785-44ec-9d33-88e54069a4c1"/>
+				<reportElement uuid="f4b80639-d785-44ec-9d33-88e54069a4c1" mode="Opaque" x="452" y="57" width="90" height="20" forecolor="#000066" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Antecedentes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="285" y="57" width="167" height="20" forecolor="#000066" backcolor="#FFFFFF" uuid="35df4691-6262-4848-87a8-00e70deaa6fb"/>
+				<reportElement uuid="35df4691-6262-4848-87a8-00e70deaa6fb" mode="Opaque" x="285" y="57" width="167" height="20" forecolor="#000066" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Hospitalizaciones]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="57" width="100" height="20" forecolor="#000066" backcolor="#FFFFFF" uuid="bf507d80-8c2b-4387-b5d5-31b9662936fe"/>
+				<reportElement uuid="bf507d80-8c2b-4387-b5d5-31b9662936fe" mode="Opaque" x="0" y="57" width="100" height="20" forecolor="#000066" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tratamientos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="171" y="57" width="135" height="20" forecolor="#000066" backcolor="#FFFFFF" uuid="35df4691-6262-4848-87a8-00e70deaa6fb"/>
+				<reportElement uuid="35df4691-6262-4848-87a8-00e70deaa6fb" mode="Opaque" x="171" y="57" width="135" height="20" forecolor="#000066" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Operaciones]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="100" y="57" width="81" height="20" forecolor="#000066" backcolor="#FFFFFF" uuid="bf507d80-8c2b-4387-b5d5-31b9662936fe"/>
+				<reportElement uuid="bf507d80-8c2b-4387-b5d5-31b9662936fe" mode="Opaque" x="100" y="57" width="81" height="20" forecolor="#000066" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Alergias]]></text>
 			</staticText>
 			<subreport>
-				<reportElement x="0" y="101" width="555" height="130" uuid="59ee4946-5e45-431d-9f92-1d10720761d3"/>
+				<reportElement uuid="59ee4946-5e45-431d-9f92-1d10720761d3" x="0" y="101" width="555" height="130"/>
 				<subreportParameter name="cedulaSub">
 					<subreportParameterExpression><![CDATA[$F{CEDULA}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -161,35 +161,35 @@ order by c.cnt_fecha, c.cnt_hora]]>
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="1" width="100" height="20" forecolor="#000066" uuid="3276ca86-ceee-4f92-b419-e00991bb3bc0"/>
+				<reportElement uuid="3276ca86-ceee-4f92-b419-e00991bb3bc0" x="0" y="1" width="100" height="20" forecolor="#000066"/>
 				<textElement textAlignment="Justified">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="452" y="1" width="103" height="20" forecolor="#000066" uuid="dae39618-bf96-49c2-a527-a9440ff16ada"/>
+				<reportElement uuid="dae39618-bf96-49c2-a527-a9440ff16ada" x="452" y="1" width="103" height="20" forecolor="#000066"/>
 				<textElement textAlignment="Justified">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tratamiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="1" width="51" height="20" forecolor="#000066" uuid="0c7b2c0f-159a-45e2-a7d2-f1b5318d6194"/>
+				<reportElement uuid="0c7b2c0f-159a-45e2-a7d2-f1b5318d6194" x="100" y="1" width="51" height="20" forecolor="#000066"/>
 				<textElement textAlignment="Justified">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Hora]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="151" y="1" width="124" height="20" forecolor="#000066" uuid="2bc17e5b-66b9-4e3d-9380-877d1a01f4a5"/>
+				<reportElement uuid="2bc17e5b-66b9-4e3d-9380-877d1a01f4a5" x="151" y="1" width="124" height="20" forecolor="#000066"/>
 				<textElement textAlignment="Justified">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[R.Consulta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="275" y="1" width="177" height="20" forecolor="#000066" uuid="5865e330-1387-465e-839e-26232b2b5da0"/>
+				<reportElement uuid="5865e330-1387-465e-839e-26232b2b5da0" x="275" y="1" width="177" height="20" forecolor="#000066"/>
 				<textElement textAlignment="Justified">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -200,35 +200,35 @@ order by c.cnt_fecha, c.cnt_hora]]>
 	<detail>
 		<band height="29" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="6" width="100" height="20" uuid="bd916302-edfc-46c3-a714-28b692741de9"/>
+				<reportElement uuid="bd916302-edfc-46c3-a714-28b692741de9" x="0" y="6" width="100" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FECHA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="452" y="6" width="103" height="20" uuid="6b6f8b45-dacd-4fb7-8299-72f9d4a0898d"/>
+				<reportElement uuid="6b6f8b45-dacd-4fb7-8299-72f9d4a0898d" x="452" y="6" width="103" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TRATAMIENTO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="6" width="51" height="20" uuid="76e07adb-dc92-406e-940c-bdd808f834d1"/>
+				<reportElement uuid="76e07adb-dc92-406e-940c-bdd808f834d1" x="100" y="6" width="51" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{HORA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="151" y="6" width="124" height="20" uuid="22655923-2091-4d51-8be1-9d23cfeccce6"/>
+				<reportElement uuid="22655923-2091-4d51-8be1-9d23cfeccce6" x="151" y="6" width="124" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RAZON_CONSULTA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="275" y="6" width="177" height="20" uuid="6d671e1a-12cd-4542-adc2-deeb58da8cba"/>
+				<reportElement uuid="6d671e1a-12cd-4542-adc2-deeb58da8cba" x="275" y="6" width="177" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -239,7 +239,10 @@ order by c.cnt_fecha, c.cnt_hora]]>
 	<pageFooter>
 		<band height="38" splitType="Stretch">
 			<textField>
-				<reportElement x="450" y="12" width="100" height="20" uuid="8798ac64-f924-498e-a79e-ceac89e58633"/>
+				<reportElement uuid="8798ac64-f924-498e-a79e-ceac89e58633" x="455" y="18" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>

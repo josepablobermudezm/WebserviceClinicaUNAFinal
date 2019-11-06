@@ -6,6 +6,7 @@
 package cr.ac.una.wsclinicauna.controller;
 
 import cr.ac.una.wsclinicauna.model.MedicoDto;
+import cr.ac.una.wsclinicauna.service.AgendaService;
 import cr.ac.una.wsclinicauna.service.MedicoService;
 import cr.ac.una.wsclinicauna.util.CodigoRespuesta;
 import cr.ac.una.wsclinicauna.util.Respuesta;
@@ -106,6 +107,40 @@ public class MedicoController {
         } catch (Exception ex) {
             Logger.getLogger(PacienteController.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(CodigoRespuesta.ERROR_INTERNO.getValue()).entity("Error obteniendo el medico").build();
+        }
+    }
+    
+    @GET
+    @Path("/reporteMedicos")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public byte[] getReporteMedicos() {
+        try {
+            Respuesta respuesta = medicoService.getReporteMedicos();
+            if (!respuesta.getEstado()) {
+                return null;
+            }
+            return (byte[]) respuesta.getResultado("reporte");
+        } catch (Exception ex) {
+            Logger.getLogger(AgendaController.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    @GET
+    @Path("/reporteMedico/{folio}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public byte[] getReporteMedico(@PathParam("folio") String cedula) {
+        try {
+            Respuesta respuesta = medicoService.getReporteMedico(cedula);
+            if (!respuesta.getEstado()) {
+                return null;
+            }
+            return (byte[]) respuesta.getResultado("reporte");
+        } catch (Exception ex) {
+            Logger.getLogger(AgendaController.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
     

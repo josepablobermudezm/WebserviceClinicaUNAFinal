@@ -163,7 +163,7 @@ public class PacienteService {
     public Respuesta getControl(String cedula) {
         generadorJasper generador = new generadorJasper();
         Connection connection = em.unwrap(Connection.class);
-        Respuesta resp = generador.generaReporte(cedula, connection);
+        Respuesta resp = generador.generaReporteControlMed(cedula, connection);
         if (resp.getEstado()) {
             return pdf();
         } else {

@@ -10,6 +10,12 @@ import cr.ac.una.wsclinicauna.model.MedicoDto;
 import cr.ac.una.wsclinicauna.util.CampoException;
 import cr.ac.una.wsclinicauna.util.CodigoRespuesta;
 import cr.ac.una.wsclinicauna.util.Respuesta;
+import jasper.generadorJasper;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +36,11 @@ import javax.persistence.Query;
 @Stateless
 @LocalBean
 public class MedicoService {
-    
+
     private static final Logger LOG = Logger.getLogger(MedicoService.class.getName());//imprime el error en payara
     @PersistenceContext(unitName = "WsClinicaUNAPU")
     private EntityManager em;
-    
+
     public Respuesta getMedicos() {
         try {
             Query qryMedicos = em.createNamedQuery("Medico.findAll", Medico.class);
@@ -52,7 +58,7 @@ public class MedicoService {
             return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al consultar el Medico.", "getMedicos " + ex.getMessage());
         }
     }
-    
+
     public Respuesta guardarMedico(MedicoDto MedicoDto) {
         try {
             Medico Medico;
@@ -72,13 +78,13 @@ public class MedicoService {
             }
             em.flush();
             return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Medico", new MedicoDto(Medico));
-         } catch (Exception ex) {
+        } catch (Exception ex) {
             LOG.log(Level.SEVERE, "Ocurrio un error al guardar el Medico.", ex);
-            if(ex.getCause().getCause() != null && ex.getCause().getCause().getClass() == SQLIntegrityConstraintViolationException.class){
+            if (ex.getCause().getCause() != null && ex.getCause().getCause().getClass() == SQLIntegrityConstraintViolationException.class) {
                 SQLIntegrityConstraintViolationException sqle = new SQLIntegrityConstraintViolationException(ex.getCause().getCause());
                 return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al guardar el Medico. Ya existe un Medico con el mismo campo "
-                        + CampoException.getCampo(sqle.getMessage(), "CLINICAUNA", "CLN",3)
-                        , "guardarMedico " + sqle.getMessage());
+                        + CampoException.getCampo(sqle.getMessage(), "CLINICAUNA", "CLN", 3),
+                        "guardarMedico " + sqle.getMessage());
             }
             return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al guardar el Medico.", "guardarMedico " + ex.getMessage());
         }
@@ -90,7 +96,7 @@ public class MedicoService {
             if (id != null && id > 0) {
                 Medico = em.find(Medico.class, id);
                 if (Medico == null) {
-                    return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO,"No se encontró el Medico a eliminar.", "EliminarMedico NoResultException");
+                    return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No se encontró el Medico a eliminar.", "EliminarMedico NoResultException");
                 }
                 em.remove(Medico);
             } else {
@@ -99,26 +105,26 @@ public class MedicoService {
             return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "");
         } catch (Exception ex) {
             if (ex.getCause() != null && ex.getCause().getCause().getClass() == SQLIntegrityConstraintViolationException.class) {
-                return new Respuesta(false, CodigoRespuesta.ERROR_PERMISOS,"No se puede eliminar el Medico porque tiene relaciones con otros registros.", "EliminarMedico " + ex.getMessage());
+                return new Respuesta(false, CodigoRespuesta.ERROR_PERMISOS, "No se puede eliminar el Medico porque tiene relaciones con otros registros.", "EliminarMedico " + ex.getMessage());
             }
             Logger.getLogger(MedicoService.class.getName()).log(Level.SEVERE, "Ocurrio un error al guardar el Medico.", ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO,"Ocurrio un error al eliminar el Medico.", "EliminarMedico " + ex.getMessage());
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al eliminar el Medico.", "EliminarMedico " + ex.getMessage());
         }
     }
-    
-    public Respuesta getMedicos(String cod, String carne, String folio){
-         try {
-            Query qryEmpleado = em.createNamedQuery("Medico.findbyCodigoCarneFolio",  Medico.class);
+
+    public Respuesta getMedicos(String cod, String carne, String folio) {
+        try {
+            Query qryEmpleado = em.createNamedQuery("Medico.findbyCodigoCarneFolio", Medico.class);
             qryEmpleado.setParameter("MedCodigo", cod);
             qryEmpleado.setParameter("MedCarne", carne);
             qryEmpleado.setParameter("MedFolio", folio);
-            
+
             List<Medico> medicos = qryEmpleado.getResultList();
             List<MedicoDto> medicosDto = new ArrayList<>();
             for (Medico med : medicos) {
-                medicosDto.add(new MedicoDto(med)); 
+                medicosDto.add(new MedicoDto(med));
             }
-            
+
             return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Medicos", medicosDto);
 
         } catch (NoResultException ex) {
@@ -126,6 +132,72 @@ public class MedicoService {
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, "Ocurrio un error al consultar el medico.", ex);
             return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al consultar el medico.", "getMedicos" + ex.getMessage());
+        }
+    }
+
+    public Respuesta getReporteMedico(String folio) {
+        generadorJasper generador = new generadorJasper();
+        Connection connection = em.unwrap(Connection.class);
+        Respuesta resp = generador.generaReporteMedico(folio, connection);
+        if (resp.getEstado()) {
+            return pdfMedico();
+        } else {
+            return resp;
+        }
+    }
+
+    public Respuesta getReporteMedicos() {
+        generadorJasper generador = new generadorJasper();
+        Connection connection = em.unwrap(Connection.class);
+        Respuesta resp = generador.generaReporteMedicos(connection);
+        if (resp.getEstado()) {
+            return pdfMedicos();
+        } else {
+            return resp;
+        }
+    }
+
+  
+
+    public Respuesta pdfMedico() {
+        /*
+            Cargo el pdf con los datos del reporte y lo convierto a bytes para poder serializarlo y mandarlo al Cliente
+         */
+        try {
+            File archivo;
+            archivo = new File("Reporte%Medico.pdf");
+            System.out.println(archivo.getAbsolutePath());
+            File file = new File(archivo.getAbsolutePath());
+            FileInputStream fis = new FileInputStream(file);
+            BufferedInputStream input = new BufferedInputStream(fis);
+            byte[] salida = new byte[(int) file.length()];
+            input.read(salida);
+            fis.close();
+            input.close();
+            return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "reporte", salida);
+        } catch (IOException e) {
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error en reporte", e.getMessage());
+        }
+    }
+
+    public Respuesta pdfMedicos() {
+        /*
+            Cargo el pdf con los datos del reporte y lo convierto a bytes para poder serializarlo y mandarlo al Cliente
+         */
+        try {
+            File archivo;
+            archivo = new File("Reporte%Medicos.pdf");
+            System.out.println(archivo.getAbsolutePath());
+            File file = new File(archivo.getAbsolutePath());
+            FileInputStream fis = new FileInputStream(file);
+            BufferedInputStream input = new BufferedInputStream(fis);
+            byte[] salida = new byte[(int) file.length()];
+            input.read(salida);
+            fis.close();
+            input.close();
+            return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "reporte", salida);
+        } catch (IOException e) {
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Error en reporte", e.getMessage());
         }
     }
 }
