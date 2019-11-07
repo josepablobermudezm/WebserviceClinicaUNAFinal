@@ -7,8 +7,8 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select c.cnt_imc as IMC, TO_CHAR(c.cnt_fecha,'DD/MM/YYYY') as fecha from cln_controles c join cln_expedientes exp on exp.exp_id = c.cnt_expediente join 
-cln_pacientes p on p.pac_id = exp.exp_paciente  where p.pac_cedula = $P{cedulaSub}]]>
+		<![CDATA[select distinct c.cnt_imc as IMC, TO_CHAR(c.cnt_fecha,'DD/MM/YYYY') as fecha from cln_controles c join cln_expedientes exp on exp.exp_id = c.cnt_expediente join 
+cln_pacientes p on p.pac_id = exp.exp_paciente  where p.pac_cedula = $P{cedulaSub} order by TO_CHAR(c.cnt_fecha,'DD/MM/YYYY') asc]]>
 	</queryString>
 	<field name="IMC" class="java.math.BigDecimal"/>
 	<field name="FECHA" class="java.lang.String"/>
@@ -26,26 +26,7 @@ cln_pacientes p on p.pac_id = exp.exp_paciente  where p.pac_cedula = $P{cedulaSu
 			</staticText>
 		</band>
 	</title>
-	<detail>
-		<band height="302" splitType="Stretch">
-			<lineChart>
-				<chart>
-					<reportElement uuid="bc51bd7b-5c2e-4ba2-8a37-d9300d681a7e" x="33" y="10" width="486" height="266"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<categoryDataset>
-					<categorySeries>
-						<seriesExpression><![CDATA[$F{FECHA}]]></seriesExpression>
-						<categoryExpression><![CDATA["IMC"]]></categoryExpression>
-						<valueExpression><![CDATA[$F{IMC}]]></valueExpression>
-					</categorySeries>
-				</categoryDataset>
-				<linePlot>
-					<plot/>
-				</linePlot>
-			</lineChart>
-		</band>
-	</detail>
+	<summary>
+		<band height="295"/>
+	</summary>
 </jasperReport>

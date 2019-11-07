@@ -2,12 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="60dc1aea-227c-4170-b3d6-a9103cf5812f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="128"/>
 	<parameter name="cedula" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\Carlos Olivares\\Documents\\GitHub\\WsClinicaUNA\\WsClinicaUNA\\WsClinicaUNA\\build\\web\\WEB-INF\\classes\\jasper\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT TO_CHAR(c.cnt_fecha,'yyyy/mm/dd') as Fecha,TO_CHAR(c.cnt_hora, 'HH24:MI') as Hora,c.cnt_presion as Presion,c.cnt_frecuencia_cardiaca as 
@@ -67,40 +67,40 @@ order by c.cnt_fecha, c.cnt_hora]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="231" splitType="Stretch">
+		<band height="127" splitType="Stretch">
 			<line>
 				<reportElement uuid="e41e6e1b-669a-464e-8a97-079013ddc36b" x="0" y="0" width="555" height="1" forecolor="#000000" backcolor="#000000"/>
 			</line>
-			<textField>
-				<reportElement uuid="6f66c468-6c55-44fa-b38d-b402a2850374" x="0" y="81" width="100" height="20"/>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6f66c468-6c55-44fa-b38d-b402a2850374" x="0" y="93" width="100" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TRATAMIENTO}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="5826fbed-2a04-4e91-8f96-09e4a56189aa" x="100" y="81" width="81" height="20"/>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5826fbed-2a04-4e91-8f96-09e4a56189aa" x="100" y="93" width="81" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ALERGIAS}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="c07d6f70-f876-4699-929f-c628f56797f0" x="181" y="81" width="122" height="20"/>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c07d6f70-f876-4699-929f-c628f56797f0" x="181" y="93" width="122" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{OPERACIONES}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="74eafda6-4574-40e9-9a07-fbfa6a3b3551" x="306" y="81" width="126" height="20"/>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="74eafda6-4574-40e9-9a07-fbfa6a3b3551" x="306" y="93" width="126" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{HOSPITALIZACIONES}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="43044290-09d3-407d-b37d-5c419bbe879b" x="433" y="81" width="122" height="20"/>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="43044290-09d3-407d-b37d-5c419bbe879b" x="433" y="93" width="122" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="false"/>
 				</textElement>
@@ -148,14 +148,6 @@ order by c.cnt_fecha, c.cnt_hora]]>
 				</textElement>
 				<text><![CDATA[Alergias]]></text>
 			</staticText>
-			<subreport>
-				<reportElement uuid="59ee4946-5e45-431d-9f92-1d10720761d3" x="0" y="101" width="555" height="130"/>
-				<subreportParameter name="cedulaSub">
-					<subreportParameterExpression><![CDATA[$F{CEDULA}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "graficoIMC.jasper"]]></subreportExpression>
-			</subreport>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -199,35 +191,35 @@ order by c.cnt_fecha, c.cnt_hora]]>
 	</columnHeader>
 	<detail>
 		<band height="29" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="bd916302-edfc-46c3-a714-28b692741de9" x="0" y="6" width="100" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{FECHA}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="6b6f8b45-dacd-4fb7-8299-72f9d4a0898d" x="452" y="6" width="103" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TRATAMIENTO}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="76e07adb-dc92-406e-940c-bdd808f834d1" x="100" y="6" width="51" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{HORA}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="22655923-2091-4d51-8be1-9d23cfeccce6" x="151" y="6" width="124" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RAZON_CONSULTA}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="6d671e1a-12cd-4542-adc2-deeb58da8cba" x="275" y="6" width="177" height="20"/>
 				<textElement textAlignment="Justified">
 					<font size="10" isBold="true"/>
@@ -247,4 +239,16 @@ order by c.cnt_fecha, c.cnt_hora]]>
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="133">
+			<subreport>
+				<reportElement uuid="59ee4946-5e45-431d-9f92-1d10720761d3" x="0" y="0" width="555" height="130"/>
+				<subreportParameter name="cedulaSub">
+					<subreportParameterExpression><![CDATA[$F{CEDULA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "graficoIMC.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
 </jasperReport>
