@@ -121,7 +121,7 @@ public class generadorJasper {
     public Respuesta generaReporteMedico(String cedula, Connection connection) {
         try {
             Map parametro = new HashMap();
-            parametro.put("cedula", cedula);
+            parametro.put("folio", cedula);
             JasperReport reporte = null;
             reporte = (JasperReport) JRLoader.loadObject(generadorJasper.class.getResource("/jasper/porcentajeMed.jasper"));
             JasperPrint j = JasperFillManager.fillReport(reporte, parametro, connection);

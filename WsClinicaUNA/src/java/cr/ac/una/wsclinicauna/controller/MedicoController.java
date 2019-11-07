@@ -131,9 +131,9 @@ public class MedicoController {
     @Path("/reporteMedico/{folio}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public byte[] getReporteMedico(@PathParam("folio") String cedula) {
+    public byte[] getReporteMedico(@PathParam("folio") String folio) {
         try {
-            Respuesta respuesta = medicoService.getReporteMedico(cedula);
+            Respuesta respuesta = medicoService.getReporteMedico(folio);
             if (!respuesta.getEstado()) {
                 return null;
             }
