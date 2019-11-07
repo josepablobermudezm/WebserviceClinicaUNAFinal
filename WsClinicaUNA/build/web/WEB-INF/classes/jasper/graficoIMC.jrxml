@@ -18,7 +18,7 @@ cln_pacientes p on p.pac_id = exp.exp_paciente  where p.pac_cedula = $P{cedulaSu
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9" x="202" y="19" width="176" height="43" forecolor="#000000" backcolor="#000000"/>
+				<reportElement x="202" y="19" width="176" height="43" forecolor="#000000" backcolor="#000000" uuid="a2744401-d9b9-4fda-a35c-829aa7a4d9c9"/>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
@@ -27,6 +27,31 @@ cln_pacientes p on p.pac_id = exp.exp_paciente  where p.pac_cedula = $P{cedulaSu
 		</band>
 	</title>
 	<summary>
-		<band height="295"/>
+		<band height="295">
+			<lineChart>
+				<chart>
+					<reportElement x="0" y="0" width="555" height="295" uuid="069bb087-f2c8-4440-bea7-08657d7b01c3"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Fecha"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{FECHA}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{IMC}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+		</band>
 	</summary>
 </jasperReport>
